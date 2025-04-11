@@ -13,6 +13,7 @@ namespace WebHotelRezervation
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var value = builder.Services.AddMvc().AddRazorRuntimeCompilation();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             var connectionString = builder.Configuration.GetConnectionString("MyDbConst")!;
@@ -21,7 +22,8 @@ namespace WebHotelRezervation
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+
+            // Configure the HTTP request pipeline. bwaaaaaaaaaaaaaaaa
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
