@@ -15,11 +15,12 @@ namespace ConsoleHotelApp
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false)
             .Build();
-
+            var connectionString = config.GetConnectionString("MyDbConst");
+            var serverVersion = ServerVersion.AutoDetect(connectionString);
             var services = new ServiceCollection()
                 .AddDbContext<HotelDbContext>(options =>
-                 options.UseMySQL(config.GetConnectionString("MyDbConst")))
-                .AddTransient<ReservationService>()
+                 options.UseMySql(connectionString,serverVersion))
+                .AddTransient<ReservationService>() 
                 .BuildServiceProvider();
             //Важно!!!
             var reservationService = services.GetRequiredService<ReservationService>();

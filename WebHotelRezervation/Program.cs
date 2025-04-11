@@ -15,7 +15,9 @@ namespace WebHotelRezervation
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<HotelDbContext>(options=>options.UseMySQL(builder.Configuration.GetConnectionString("MyDbConst")!));
+            var connectionString = builder.Configuration.GetConnectionString("MyDbConst")!;
+            var serverVersion = ServerVersion.AutoDetect(connectionString);
+            builder.Services.AddDbContext<HotelDbContext>(options=>options.UseMySql(connectionString,serverVersion));
 
             var app = builder.Build();
 
